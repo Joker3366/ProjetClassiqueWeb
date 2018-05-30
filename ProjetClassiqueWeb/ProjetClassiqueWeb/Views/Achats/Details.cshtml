@@ -1,0 +1,50 @@
+﻿@model ProjetClassiqueWeb.Controllers.Achat
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    <div>
+        <h4>Achat</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Achat_Confirme)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Achat_Confirme)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Abonne.Nom_Abonne)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Abonne.Nom_Abonne)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Enregistrement.Titre)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Enregistrement.Titre)
+            </dd>
+    
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Code_Achat }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</body>
+</html>

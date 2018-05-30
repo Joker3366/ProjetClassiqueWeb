@@ -26,5 +26,12 @@ namespace ProjetClassiqueWeb.Controllers
 
             return View();
         }
+
+        public ActionResult Musiciens()
+        {
+            ViewBag.Message = "Your contact page.";
+
+            return View();
+        }
     }
 }
