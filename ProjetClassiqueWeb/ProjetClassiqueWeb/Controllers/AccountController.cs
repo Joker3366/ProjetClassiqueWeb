@@ -145,6 +145,7 @@ namespace ProjetClassiqueWeb.Controllers
         {
             return View();
         }
+        private Classique_Web_2017Entities1 db = new Classique_Web_2017Entities1();
 
         //
         // POST: /Account/Register
@@ -157,7 +158,7 @@ namespace ProjetClassiqueWeb.Controllers
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
-             
+         
 
                 if (result.Succeeded)
                 {
@@ -168,8 +169,15 @@ namespace ProjetClassiqueWeb.Controllers
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirmez votre compte", "Confirmez votre compte en cliquant <a href=\"" + callbackUrl + "\">ici</a>");
-                    
-                    
+                    Abonne a = new Abonne();
+                    a.Nom_Abonne = "Charlie";
+                    /*    a.Login = model.Email;
+                      */
+                    a.Email = model.Email;
+                    a.Password = model.Password;
+                    db.Abonne.Add(a);
+                    db.SaveChanges();
+
                     return RedirectToAction("Index", "Home");
                 }
                 AddErrors(result);

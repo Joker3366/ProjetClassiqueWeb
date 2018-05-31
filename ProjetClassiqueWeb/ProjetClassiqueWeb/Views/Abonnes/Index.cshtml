@@ -48,7 +48,10 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
+@foreach (var item in Model)
+{
+    if (item.Nom_Abonne == "hadjari")
+    {
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.Nom_Abonne)
@@ -84,11 +87,13 @@
             @Html.DisplayFor(modelItem => item.Pays.Nom_Pays)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Code_Abonne }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Code_Abonne }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Code_Abonne })
+            @Html.ActionLink("Edit", "Edit", new { id = item.Code_Abonne }) |
+            @Html.ActionLink("Details", "Details", new { id = item.Code_Abonne }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.Code_Abonne })
         </td>
+        
     </tr>
+    }
 }
 
 </table>

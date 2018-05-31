@@ -17,7 +17,10 @@ namespace ProjetClassiqueWeb.Controllers
         // GET: Achats
         public async Task<ActionResult> Index()
         {
-            var achat = db.Achat.Include(a => a.Abonne).Include(a => a.Enregistrement);
+            var achat = (from a in db.Achat
+                         where User.Identity.Name == a.Abonne.Email
+                         select a);
+            //var achat = db.Achat.Include(a => a.Abonne).Include(a => a.Enregistrement);
             return View(await achat.ToListAsync());
         }
 
