@@ -170,9 +170,12 @@ namespace ProjetClassiqueWeb.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirmez votre compte", "Confirmez votre compte en cliquant <a href=\"" + callbackUrl + "\">ici</a>");
                     Abonne a = new Abonne();
-                    a.Nom_Abonne = "Charlie";
-                    /*    a.Login = model.Email;
-                      */
+                    a.Nom_Abonne = model.Nom;
+
+                    a.Prenom_Abonne = model.Prenom;
+                    a.Login = model.UserName;
+                      
+
                     a.Email = model.Email;
                     a.Password = model.Password;
                     db.Abonne.Add(a);

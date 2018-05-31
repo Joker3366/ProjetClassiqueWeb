@@ -48,6 +48,7 @@ namespace ProjetClassiqueWeb.Models
 
     public class LoginViewModel
     {
+
         [Required]
         [Display(Name = "Courrier électronique")]
         [EmailAddress]
@@ -65,6 +66,16 @@ namespace ProjetClassiqueWeb.Models
     public class RegisterViewModel
     {
         [Required]
+        [Display(Name = "Nom")]
+        public string Nom { get; set; }
+
+        [Display(Name = "Prenom")]
+        public string Prenom { get; set; }
+
+        [Required]
+        [Display(Name = "Login")]
+        public string UserName { get; set; }
+        [Required]
         [EmailAddress]
         [Display(Name = "Courrier électronique")]
         public string Email { get; set; }
@@ -79,6 +90,8 @@ namespace ProjetClassiqueWeb.Models
         [Display(Name = "Confirmer le mot de passe ")]
         [Compare("Password", ErrorMessage = "Le mot de passe et le mot de passe de confirmation ne correspondent pas.")]
         public string ConfirmPassword { get; set; }
+
+
     }
 
     public class ResetPasswordViewModel

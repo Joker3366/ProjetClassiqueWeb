@@ -90,6 +90,7 @@ namespace ProjetClassiqueWeb.Controllers
                 //  await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                 var user = new ApplicationUser { UserName = abonne.Email, Email = abonne.Email };
                 var result = UserManager.Create(user, abonne.Password);
+             
                 if (result.Succeeded)
                 {
                     ViewBag.Code_Pays = new SelectList(db.Pays, "Code_Pays", "Nom_Pays", abonne.Code_Pays);
