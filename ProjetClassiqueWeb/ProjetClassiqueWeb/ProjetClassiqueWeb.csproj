@@ -200,6 +200,7 @@
     <Compile Include="Controllers\Abonne.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\AbonnesController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\Achat.cs">
       <DependentUpon>Model1.tt</DependentUpon>
@@ -244,6 +245,7 @@
     <Compile Include="Controllers\Instrumentation.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\InstrumentsController.cs" />
     <Compile Include="Controllers\Interpreter.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -395,6 +397,16 @@
     <Content Include="Views\Achats\Details.cshtml" />
     <Content Include="Views\Achats\Edit.cshtml" />
     <Content Include="Views\Achats\Index.cshtml" />
+    <Content Include="Views\Instruments\Create.cshtml" />
+    <Content Include="Views\Instruments\Delete.cshtml" />
+    <Content Include="Views\Instruments\Details.cshtml" />
+    <Content Include="Views\Instruments\Edit.cshtml" />
+    <Content Include="Views\Instruments\Index.cshtml" />
+    <Content Include="Views\Abonnes\Create.cshtml" />
+    <Content Include="Views\Abonnes\Delete.cshtml" />
+    <Content Include="Views\Abonnes\Details.cshtml" />
+    <Content Include="Views\Abonnes\Edit.cshtml" />
+    <Content Include="Views\Abonnes\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

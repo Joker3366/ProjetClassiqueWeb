@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
@@ -14,19 +15,19 @@ namespace ProjetClassiqueWeb.Controllers
         private Classique_Web_2017Entities1 db = new Classique_Web_2017Entities1();
 
         // GET: Genres
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            return View(db.Genre.ToList());
+            return View(await db.Genre.ToListAsync());
         }
 
         // GET: Genres/Details/5
-        public ActionResult Details(int? id)
+        public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Genre genre = db.Genre.Find(id);
+            Genre genre = await db.Genre.FindAsync(id);
             if (genre == null)
             {
                 return HttpNotFound();
@@ -45,12 +46,12 @@ namespace ProjetClassiqueWeb.Controllers
         // plus de détails, voir  http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Code_Genre,Libelle_Abrege")] Genre genre)
+        public async Task<ActionResult> Create([Bind(Include = "Code_Genre,Libelle_Abrege")] Genre genre)
         {
             if (ModelState.IsValid)
             {
                 db.Genre.Add(genre);
-                db.SaveChanges();
+                await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
 
@@ -58,13 +59,13 @@ namespace ProjetClassiqueWeb.Controllers
         }
 
         // GET: Genres/Edit/5
-        public ActionResult Edit(int? id)
+        public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Genre genre = db.Genre.Find(id);
+            Genre genre = await db.Genre.FindAsync(id);
             if (genre == null)
             {
                 return HttpNotFound();
@@ -77,25 +78,25 @@ namespace ProjetClassiqueWeb.Controllers
         // plus de détails, voir  http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Code_Genre,Libelle_Abrege")] Genre genre)
+        public async Task<ActionResult> Edit([Bind(Include = "Code_Genre,Libelle_Abrege")] Genre genre)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(genre).State = EntityState.Modified;
-                db.SaveChanges();
+                await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
             return View(genre);
         }
 
         // GET: Genres/Delete/5
-        public ActionResult Delete(int? id)
+        public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Genre genre = db.Genre.Find(id);
+            Genre genre = await db.Genre.FindAsync(id);
             if (genre == null)
             {
                 return HttpNotFound();
@@ -106,11 +107,11 @@ namespace ProjetClassiqueWeb.Controllers
         // POST: Genres/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            Genre genre = db.Genre.Find(id);
+            Genre genre = await db.Genre.FindAsync(id);
             db.Genre.Remove(genre);
-            db.SaveChanges();
+            await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
 

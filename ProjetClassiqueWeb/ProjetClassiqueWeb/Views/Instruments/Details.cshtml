@@ -1,0 +1,35 @@
+﻿@model ProjetClassiqueWeb.Controllers.Instrument
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Instrument</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Nom_Instrument)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nom_Instrument)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Image)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Image)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Code_Instrument }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

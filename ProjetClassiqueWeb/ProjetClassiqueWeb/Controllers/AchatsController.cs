@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
@@ -14,20 +15,20 @@ namespace ProjetClassiqueWeb.Controllers
         private Classique_Web_2017Entities1 db = new Classique_Web_2017Entities1();
 
         // GET: Achats
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
             var achat = db.Achat.Include(a => a.Abonne).Include(a => a.Enregistrement);
-            return View(achat.ToList());
+            return View(await achat.ToListAsync());
         }
 
         // GET: Achats/Details/5
-        public ActionResult Details(int? id)
+        public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Achat achat = db.Achat.Find(id);
+            Achat achat = await db.Achat.FindAsync(id);
             if (achat == null)
             {
                 return HttpNotFound();
@@ -48,12 +49,12 @@ namespace ProjetClassiqueWeb.Controllers
         // plus de détails, voir  http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Code_Achat,Code_Enregistrement,Code_Abonne,Achat_Confirme")] Achat achat)
+        public async Task<ActionResult> Create([Bind(Include = "Code_Achat,Code_Enregistrement,Code_Abonne,Achat_Confirme")] Achat achat)
         {
             if (ModelState.IsValid)
             {
                 db.Achat.Add(achat);
-                db.SaveChanges();
+                await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
 
@@ -63,13 +64,13 @@ namespace ProjetClassiqueWeb.Controllers
         }
 
         // GET: Achats/Edit/5
-        public ActionResult Edit(int? id)
+        public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Achat achat = db.Achat.Find(id);
+            Achat achat = await db.Achat.FindAsync(id);
             if (achat == null)
             {
                 return HttpNotFound();
@@ -84,12 +85,12 @@ namespace ProjetClassiqueWeb.Controllers
         // plus de détails, voir  http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Code_Achat,Code_Enregistrement,Code_Abonne,Achat_Confirme")] Achat achat)
+        public async Task<ActionResult> Edit([Bind(Include = "Code_Achat,Code_Enregistrement,Code_Abonne,Achat_Confirme")] Achat achat)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(achat).State = EntityState.Modified;
-                db.SaveChanges();
+                await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
             ViewBag.Code_Abonne = new SelectList(db.Abonne, "Code_Abonne", "Nom_Abonne", achat.Code_Abonne);
@@ -98,13 +99,13 @@ namespace ProjetClassiqueWeb.Controllers
         }
 
         // GET: Achats/Delete/5
-        public ActionResult Delete(int? id)
+        public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Achat achat = db.Achat.Find(id);
+            Achat achat = await db.Achat.FindAsync(id);
             if (achat == null)
             {
                 return HttpNotFound();
@@ -115,11 +116,11 @@ namespace ProjetClassiqueWeb.Controllers
         // POST: Achats/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            Achat achat = db.Achat.Find(id);
+            Achat achat = await db.Achat.FindAsync(id);
             db.Achat.Remove(achat);
-            db.SaveChanges();
+            await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
 

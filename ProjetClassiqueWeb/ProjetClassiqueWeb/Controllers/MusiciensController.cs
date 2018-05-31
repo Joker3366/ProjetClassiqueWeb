@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
@@ -12,23 +13,22 @@ namespace ProjetClassiqueWeb.Controllers
     public class MusiciensController : Controller
     {
         private Classique_Web_2017Entities1 db = new Classique_Web_2017Entities1();
-        static List<Musicien> people = new List<Musicien>();
 
         // GET: Musiciens
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
             var musicien = db.Musicien.Include(m => m.Genre).Include(m => m.Instrument).Include(m => m.Pays);
-            return View(musicien.ToList());
+            return View(await musicien.ToListAsync());
         }
 
         // GET: Musiciens/Details/5
-        public ActionResult Details(int? id)
+        public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Musicien musicien = db.Musicien.Find(id);
+            Musicien musicien = await db.Musicien.FindAsync(id);
             if (musicien == null)
             {
                 return HttpNotFound();
@@ -50,12 +50,12 @@ namespace ProjetClassiqueWeb.Controllers
         // plus de détails, voir  http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Code_Musicien,Nom_Musicien,Prenom_Musicien,Annee_Naissance,Annee_Mort,Code_Pays,Code_Genre,Code_Instrument,Photo")] Musicien musicien)
+        public async Task<ActionResult> Create([Bind(Include = "Code_Musicien,Nom_Musicien,Prenom_Musicien,Annee_Naissance,Annee_Mort,Code_Pays,Code_Genre,Code_Instrument,Photo")] Musicien musicien)
         {
             if (ModelState.IsValid)
             {
                 db.Musicien.Add(musicien);
-                db.SaveChanges();
+                await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
 
@@ -66,13 +66,13 @@ namespace ProjetClassiqueWeb.Controllers
         }
 
         // GET: Musiciens/Edit/5
-        public ActionResult Edit(int? id)
+        public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Musicien musicien = db.Musicien.Find(id);
+            Musicien musicien = await db.Musicien.FindAsync(id);
             if (musicien == null)
             {
                 return HttpNotFound();
@@ -88,12 +88,12 @@ namespace ProjetClassiqueWeb.Controllers
         // plus de détails, voir  http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Code_Musicien,Nom_Musicien,Prenom_Musicien,Annee_Naissance,Annee_Mort,Code_Pays,Code_Genre,Code_Instrument,Photo")] Musicien musicien)
+        public async Task<ActionResult> Edit([Bind(Include = "Code_Musicien,Nom_Musicien,Prenom_Musicien,Annee_Naissance,Annee_Mort,Code_Pays,Code_Genre,Code_Instrument,Photo")] Musicien musicien)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(musicien).State = EntityState.Modified;
-                db.SaveChanges();
+                await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
             ViewBag.Code_Genre = new SelectList(db.Genre, "Code_Genre", "Libelle_Abrege", musicien.Code_Genre);
@@ -103,13 +103,13 @@ namespace ProjetClassiqueWeb.Controllers
         }
 
         // GET: Musiciens/Delete/5
-        public ActionResult Delete(int? id)
+        public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Musicien musicien = db.Musicien.Find(id);
+            Musicien musicien = await db.Musicien.FindAsync(id);
             if (musicien == null)
             {
                 return HttpNotFound();
@@ -120,11 +120,11 @@ namespace ProjetClassiqueWeb.Controllers
         // POST: Musiciens/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            Musicien musicien = db.Musicien.Find(id);
+            Musicien musicien = await db.Musicien.FindAsync(id);
             db.Musicien.Remove(musicien);
-            db.SaveChanges();
+            await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
 

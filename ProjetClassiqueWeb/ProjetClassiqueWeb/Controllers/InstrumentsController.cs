@@ -3,115 +3,114 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
 namespace ProjetClassiqueWeb.Controllers
 {
-    public class Type_MorceauxController : Controller
+    public class InstrumentsController : Controller
     {
         private Classique_Web_2017Entities1 db = new Classique_Web_2017Entities1();
 
-        // GET: Type_Morceaux
-        public async Task<ActionResult> Index()
+        // GET: Instruments
+        public ActionResult Index()
         {
-            return View(await db.Type_Morceaux.ToListAsync());
+            return View(db.Instrument.ToList());
         }
 
-        // GET: Type_Morceaux/Details/5
-        public async Task<ActionResult> Details(int? id)
+        // GET: Instruments/Details/5
+        public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Type_Morceaux type_Morceaux = await db.Type_Morceaux.FindAsync(id);
-            if (type_Morceaux == null)
+            Instrument instrument = db.Instrument.Find(id);
+            if (instrument == null)
             {
                 return HttpNotFound();
             }
-            return View(type_Morceaux);
+            return View(instrument);
         }
 
-        // GET: Type_Morceaux/Create
+        // GET: Instruments/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Type_Morceaux/Create
+        // POST: Instruments/Create
         // Afin de déjouer les attaques par sur-validation, activez les propriétés spécifiques que vous voulez lier. Pour 
         // plus de détails, voir  http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "Code_Type,Libelle_Type,Description")] Type_Morceaux type_Morceaux)
+        public ActionResult Create([Bind(Include = "Code_Instrument,Nom_Instrument,Image")] Instrument instrument)
         {
             if (ModelState.IsValid)
             {
-                db.Type_Morceaux.Add(type_Morceaux);
-                await db.SaveChangesAsync();
+                db.Instrument.Add(instrument);
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(type_Morceaux);
+            return View(instrument);
         }
 
-        // GET: Type_Morceaux/Edit/5
-        public async Task<ActionResult> Edit(int? id)
+        // GET: Instruments/Edit/5
+        public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Type_Morceaux type_Morceaux = await db.Type_Morceaux.FindAsync(id);
-            if (type_Morceaux == null)
+            Instrument instrument = db.Instrument.Find(id);
+            if (instrument == null)
             {
                 return HttpNotFound();
             }
-            return View(type_Morceaux);
+            return View(instrument);
         }
 
-        // POST: Type_Morceaux/Edit/5
+        // POST: Instruments/Edit/5
         // Afin de déjouer les attaques par sur-validation, activez les propriétés spécifiques que vous voulez lier. Pour 
         // plus de détails, voir  http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Code_Type,Libelle_Type,Description")] Type_Morceaux type_Morceaux)
+        public ActionResult Edit([Bind(Include = "Code_Instrument,Nom_Instrument,Image")] Instrument instrument)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(type_Morceaux).State = EntityState.Modified;
-                await db.SaveChangesAsync();
+                db.Entry(instrument).State = EntityState.Modified;
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(type_Morceaux);
+            return View(instrument);
         }
 
-        // GET: Type_Morceaux/Delete/5
-        public async Task<ActionResult> Delete(int? id)
+        // GET: Instruments/Delete/5
+        public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Type_Morceaux type_Morceaux = await db.Type_Morceaux.FindAsync(id);
-            if (type_Morceaux == null)
+            Instrument instrument = db.Instrument.Find(id);
+            if (instrument == null)
             {
                 return HttpNotFound();
             }
-            return View(type_Morceaux);
+            return View(instrument);
         }
 
-        // POST: Type_Morceaux/Delete/5
+        // POST: Instruments/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(int id)
         {
-            Type_Morceaux type_Morceaux = await db.Type_Morceaux.FindAsync(id);
-            db.Type_Morceaux.Remove(type_Morceaux);
-            await db.SaveChangesAsync();
+            Instrument instrument = db.Instrument.Find(id);
+            db.Instrument.Remove(instrument);
+            db.SaveChanges();
             return RedirectToAction("Index");
         }
 

@@ -1,5 +1,12 @@
 ﻿@model ProjetClassiqueWeb.Controllers.Album
 
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Create</h2>
+
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
